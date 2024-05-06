@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
 	Row,
@@ -10,12 +10,19 @@ import {
 	ListGroupItem,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { products } from '../lib/products';
+import client from '../api/client';
 
 const ProductScreen = () => {
+	const [product, setProduct] = useState({});
 	const { id } = useParams();
+	useEffect(() => {
+		const fetchProduct = async () => {
+			const { data } = await client.get(`/products/${id}`);
+			setProduct(data);
+		};
+		fetchProduct();
+	}, []);
 
-	const product = products.find((p) => p._id === id);
 	return (
 		<>
 			<Link
