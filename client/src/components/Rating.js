@@ -1,6 +1,6 @@
 import React from 'react';
 import { propTypes } from 'react-bootstrap/esm/Image';
-const Rating = ({ value = 0, text = '', color = '#ffffff' }) => {
+const Rating = ({ value = 0, text = '', color = '#fabc2a' }) => {
 	return (
 		<div className='rating'>
 			<span>
@@ -67,9 +67,7 @@ const Rating = ({ value = 0, text = '', color = '#ffffff' }) => {
 		</div>
 	);
 };
-Rating.defaultProps = {
-	color: '#fabc2a',
-};
+
 // Rating.propTypes = {
 // 	value: propTypes.number.isRequired,
 // 	text: propTypes.string.isRequired,
