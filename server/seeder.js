@@ -8,10 +8,10 @@ import Product from './models/productModel.js';
 import User from './models/userModel.js';
 
 dotenv.config();
+await connectDB();
 
 const importData = async () => {
 	try {
-		await connectDB();
 		await Order.deleteMany();
 
 		await Product.deleteMany();
