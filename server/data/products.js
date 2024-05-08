@@ -8,7 +8,6 @@ const SAMPLE_IMG = '../images/sample.jpg';
 
 const products = [
 	{
-		_id: '1',
 		name: 'Apple Airpods',
 		image: AIRPOD_IMG,
 		description: 'Bluetooth headphones with charging case. ',
@@ -20,7 +19,6 @@ const products = [
 		numReviews: 4,
 	},
 	{
-		_id: '2',
 		name: 'Amazon Alexa',
 		image: ALEXA_IMG,
 		description: 'Smart speaker',
@@ -32,7 +30,6 @@ const products = [
 		numReviews: 4,
 	},
 	{
-		_id: '3',
 		name: 'Canon EOS 80D',
 		image: CAMERA_IMG,
 		description: 'DSLR Camera',
@@ -44,7 +41,6 @@ const products = [
 		numReviews: 3,
 	},
 	{
-		_id: '4',
 		name: 'Logitech G-Series Mouse',
 		image: MOUSE_IMG,
 		description: 'Gaming Mouse',
@@ -56,7 +52,6 @@ const products = [
 		numReviews: 3,
 	},
 	{
-		_id: '5',
 		name: 'iPhone 11 Pro',
 		image: PHONE_IMG,
 		description: 'Apple smartphone',
@@ -68,7 +63,6 @@ const products = [
 		numReviews: 3,
 	},
 	{
-		_id: '6',
 		name: 'PlayStation 4 Pro',
 		image: PLAYSTATION_IMG,
 		description: 'Sony gaming console',
