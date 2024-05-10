@@ -11,17 +11,31 @@ import {
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import client from '../api/client';
+import { useDispatch } from 'react-redux';
 
-const ProductScreen = () => {
-	const [product, setProduct] = useState({});
-	const { id } = useParams();
+const ProductScreen = ({ history, match }) => {
+	const [qty, setQty] = useState(1);
+	const dispatch = useDispatch();
+	const productDetails = useSelector((state) => state.productDetails);
+	const { loading, error, product } = productDetails;
+
 	useEffect(() => {
-		const fetchProduct = async () => {
-			const { data } = await client.get(`/products/${id}`);
-			setProduct(data);
-		};
-		fetchProduct();
-	}, [id]);
+		dispatch(listProductDetails(match.params.id));
+	}, [dispatch, match]);
+	const addToCartHandler = () => {
+		history.push(`/cart/${match.params.id}?qty=${qty}`);
+	};
+
+	// () => {
+	// 	const [product, setProduct] = useState({});
+	// 	const { id } = useParams();
+	// 	useEffect(() => {
+	// 		const fetchProduct = async () => {
+	// 			const { data } = await client.get(`/products/${id}`);
+	// 			setProduct(data);
+	// 		};
+	// 		fetchProduct();
+	// 	}, [id]);
 
 	return (
 		<>

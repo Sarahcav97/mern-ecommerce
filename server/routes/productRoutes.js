@@ -7,9 +7,9 @@ router.get(
 	'/',
 	asyncHandler(async (req, res) => {
 		const products = await Product.find({});
-		console.log({ products });
 
 		res.json(products);
+		throw new Error('Some error');
 	})
 );
 router.get(
