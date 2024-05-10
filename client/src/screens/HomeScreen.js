@@ -4,9 +4,11 @@ import Product from '../components/Product';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import client from '../api/client';
+import { listProducts } from '../redux/actions/productActions';
 
 const HomeScreen = () => {
 	const [products, setProducts] = useState([]);
+
 	useEffect(() => {
 		const fetchProducts = async () => {
 			const { data } = await client.get('/products');
