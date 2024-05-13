@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
 import { Link } from 'react-router-dom';
 import {
 	Row,
@@ -11,10 +11,8 @@ import {
 	Button,
 	Card,
 } from 'react-bootstrap';
-import { addToCart } from '../redux/actions/cartActions';
-const CartScreen = ({ match, location, history }) => {
-	const productId = match.params.id;
 
+const CartScreen = ({ match, location, history }) => {
 	return (
 		<div>
 			<h1>CartScreen</h1>

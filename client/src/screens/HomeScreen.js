@@ -1,21 +1,13 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import Product from '../components/Product';
-import { Row, Col } from 'react-bootstrap';
-import axios from 'axios';
-import client from '../api/client';
-import { listProducts } from '../redux/actions/productActions';
-import Message from '../components/Message';
+import React, { useEffect } from 'react';
+import { Col, Row } from 'react-bootstrap';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
+import Product from '../components/Product';
+import { useProduct } from '../context/ProductContext';
 const HomeScreen = () => {
-	const [products, setProducts] = useState([]);
-
+	const { error, loading, productList, fetchProductList } = useProduct();
 	useEffect(() => {
-		const fetchProducts = async () => {
-			const { data } = await client.get('/products');
-			setProducts(data);
-		};
-		fetchProducts();
+		fetchProductList();
 	}, []);
 	return (
 		<>
@@ -26,8 +18,8 @@ const HomeScreen = () => {
 				<Message variant='danger'>{error}</Message>
 			) : (
 				<Row>
-					{products &&
-						products.map((product) => (
+					{productList &&
+						productList.map((product) => (
 							<Col
 								key={product._id}
 								sm={12}
