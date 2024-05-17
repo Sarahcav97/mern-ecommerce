@@ -48,23 +48,31 @@ const ProductProvider = ({ children }) => {
 		try {
 			const { data } = await client.get(`/products/${id}`);
 			setCartItems(() => {
-				const existingCart = JSON.parse(localStorage.getItem('cartItems'));
-				let newProduct = [];
+				let existingCart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-				for (var i = 0; i < qty; i++) {
-					newProduct.push(data);
+				// Check if the product already exists in the cart
+				console.log({ id, qty });
+				const productIndex = existingCart.findIndex((item) => item._id === id);
+
+				console.log({ productIndex });
+
+				if (productIndex !== -1) {
+					// Update the quantity of the existing product
+					existingCart[productIndex].qty = qty;
+					console.log({ p: existingCart[productIndex].qty });
+				} else {
+					// Add the new product to the cart
+					existingCart.push({ ...data, qty });
 				}
+				console.log({ existingCart });
 
-				let updatedCart;
+				// Update localStorage
+				localStorage.setItem('cartItems', JSON.stringify(existingCart));
 
-				if (existingCart) updatedCart = [...existingCart, ...newProduct];
-				else updatedCart = [...newProduct];
-
-				localStorage.setItem('cartItems', JSON.stringify(updatedCart));
-				return updatedCart;
+				return existingCart;
 			});
 		} catch (error) {
-			return console.error(error);
+			console.error(error);
 		}
 	};
 
