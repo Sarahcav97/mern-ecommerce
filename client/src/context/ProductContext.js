@@ -6,6 +6,7 @@ const ProductContext = createContext();
 const ProductProvider = ({ children }) => {
 	const [productList, setProductList] = useState([]);
 	const [productDetails, setProductDetails] = useState({});
+	const [cartItems, setCartItems] = useState([]);
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 	const { setAlert } = useAlert();
@@ -36,6 +37,37 @@ const ProductProvider = ({ children }) => {
 			return console.error(error);
 		}
 	};
+
+	const getCartItems = () => {
+		return JSON.parse(localStorage.getItem('cartItems')) || [];
+	};
+
+	// Equivelant to his dispatch function for CART_ADD_ITEM
+	const addToCart = async (id, qty) => {
+		console.log('adding to cart');
+		try {
+			const { data } = await client.get(`/products/${id}`);
+			setCartItems(() => {
+				const existingCart = JSON.parse(localStorage.getItem('cartItems'));
+				let newProduct = [];
+
+				for (var i = 0; i < qty; i++) {
+					newProduct.push(data);
+				}
+
+				let updatedCart;
+
+				if (existingCart) updatedCart = [...existingCart, ...newProduct];
+				else updatedCart = [...newProduct];
+
+				localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+				return updatedCart;
+			});
+		} catch (error) {
+			return console.error(error);
+		}
+	};
+
 	return (
 		<ProductContext.Provider
 			value={{
@@ -49,6 +81,10 @@ const ProductProvider = ({ children }) => {
 				setLoading,
 				fetchProductDetails,
 				fetchProductList,
+				addToCart,
+				cartItems,
+				setCartItems,
+				getCartItems,
 			}}
 		>
 			{children}
