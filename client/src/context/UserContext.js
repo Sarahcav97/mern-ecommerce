@@ -9,6 +9,7 @@ const UserProvider = ({ children }) => {
 	const [loading, setLoading] = useState(false);
 	const [user, setUser] = useState({});
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [name, setName] = useState('');
 
 	const login = async () => {
 		try {
@@ -29,11 +30,34 @@ const UserProvider = ({ children }) => {
 			return console.error(error);
 		}
 	};
+	const signup = async () => {
+		try {
+			setLoading(true);
+
+			const { data } = await client.post('/users/signup', {
+				email,
+				password,
+				name,
+			});
+			console.log({ data });
+			setIsLoggedIn(true);
+			sessionStorage.setItem('token', data.token);
+			sessionStorage.setItem('userInfo', JSON.stringify(data.user));
+			setUser(data.user);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+			return console.error(error);
+		}
+	};
 
 	const fetchCurrentUser = async () => {
-		const { data } = await client.get(`/users/profile`);
-		console.log({ data });
-		setUser(data.user);
+		const token = sessionStorage.getItem('token');
+		if (token) {
+			const { data } = await client.get(`/users/profile`);
+			console.log({ data });
+			setUser(data.user);
+		}
 	};
 	const handleLogout = () => {
 		sessionStorage.removeItem('token');
@@ -60,6 +84,9 @@ const UserProvider = ({ children }) => {
 				isLoggedIn,
 				setIsLoggedIn,
 				handleLogout,
+				signup,
+				name,
+				setName,
 			}}
 		>
 			{children}

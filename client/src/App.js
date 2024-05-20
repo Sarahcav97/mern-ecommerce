@@ -7,6 +7,7 @@ import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import SignupScreen from './screens/SignupScreen';
 const App = () => {
 	return (
 		<>
@@ -27,6 +28,10 @@ const App = () => {
 							<Route
 								path='/login'
 								element={<LoginScreen />}
+							/>
+							<Route
+								path='/signup'
+								element={<SignupScreen />}
 							/>
 							<Route
 								path='/cart/:id?'
