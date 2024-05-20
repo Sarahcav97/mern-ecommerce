@@ -9,7 +9,7 @@ import {
 	ListGroupItem,
 	Row,
 } from 'react-bootstrap';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Message from '../components/Message';
 import { useProduct } from '../context/ProductContext';
 
@@ -20,6 +20,8 @@ const CartScreen = () => {
 		useProduct();
 	const productId = id;
 	const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (productId) {
@@ -32,6 +34,10 @@ const CartScreen = () => {
 		const updatedCartItems = cartItems.filter((item) => item._id !== id);
 		setCartItems(updatedCartItems);
 		localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+	};
+
+	const checkoutHandler = () => {
+		navigate('/login?redirect=shipping');
 	};
 
 	return (
@@ -113,6 +119,16 @@ const CartScreen = () => {
 									0
 								)
 								.toFixed(2)}
+						</ListGroupItem>
+						<ListGroupItem>
+							<Button
+								type='button'
+								className='btn-block'
+								disabled={cartItems.length === 0}
+								onClick={checkoutHandler}
+							>
+								Proceed to Checkout
+							</Button>
 						</ListGroupItem>
 					</ListGroup>
 				</Card>
