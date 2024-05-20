@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
 	Form,
 	Button,
@@ -12,16 +12,19 @@ import {
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
+import { useUser } from '../context/UserContext';
 
 const LoginScreen = () => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const { email, setEmail, password, setPassword, login } = useUser();
+	const navigate = useNavigate();
 	const location = useLocation();
 	console.log(location);
 	const redirect = location.search ? location.search.split('=')[1] : '/';
+
 	const submitHandler = (e) => {
 		e.preventDefault();
-		//DISPATCH LOGIN
+		login();
+		navigate('/profile');
 	};
 
 	return (

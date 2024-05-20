@@ -1,8 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import User from '../../models/userModel.js';
 import generateToken from '../../utils/generateToken.js';
-
-const authUser = asyncHandler(async (req, res) => {
+import { isAuth } from '../../middleware/isAuth.js';
+const authUser = async (req, res) => {
 	const { email, password } = req.body;
 	const user = await User.findOne({ email });
 
@@ -12,15 +12,25 @@ const authUser = asyncHandler(async (req, res) => {
 		const token = generateToken(user._id);
 
 		res.json({
-			_id: user._id,
-			name: user.name,
-			email: user.email,
-			isAdmin: user.isAdmin,
+			user,
 			token,
 		});
 	} else {
 		res.status(401);
 		throw new Error('Invalid email or password');
 	}
-});
-export { authUser };
+};
+
+// Get user profile
+// GET /api/users/profile
+// private access
+
+const getUserProfile = async (req, res) => {
+	console.log('inside profile route');
+
+	if (req.user) {
+		res.json({ user: req.user });
+	} else console.log('user is not signed in');
+};
+
+export { authUser, getUserProfile };
