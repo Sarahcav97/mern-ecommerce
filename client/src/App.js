@@ -36,15 +36,15 @@ const App = () => {
 				{ path: 'signup', element: <SignupScreen /> },
 				{
 					path: 'product/:id',
-					element: isLoggedIn ? <ProductScreen /> : redirect('/login'),
+					element: isLoggedIn ? <ProductScreen /> : <LoginScreen />,
 				},
 				{
 					path: 'cart/:id?',
-					element: isLoggedIn ? <CartScreen /> : redirect('/login'),
+					element: isLoggedIn ? <CartScreen /> : <LoginScreen />,
 				},
 				{
 					path: 'profile',
-					element: isLoggedIn ? <ProfileScreen /> : redirect('/login'),
+					element: isLoggedIn ? <ProfileScreen /> : <LoginScreen />,
 				},
 			],
 		},
