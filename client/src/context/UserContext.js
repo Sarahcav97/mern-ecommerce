@@ -14,13 +14,11 @@ const UserProvider = ({ children }) => {
 	const login = async () => {
 		try {
 			setLoading(true);
-
 			const { data } = await client.post('/users/login', {
 				email,
 				password,
 			});
 			console.log({ data });
-			setIsLoggedIn(true);
 			sessionStorage.setItem('token', data.token);
 			sessionStorage.setItem('userInfo', JSON.stringify(data.user));
 			setUser(data.user);
@@ -67,6 +65,17 @@ const UserProvider = ({ children }) => {
 	useEffect(() => {
 		fetchCurrentUser();
 	}, []);
+
+	useEffect(() => {
+		console.log('checking if user is logged in...');
+		if (user && user.name) {
+			console.log('user is logged in');
+			setIsLoggedIn(true);
+		} else {
+			console.log('user is not logged in');
+			setIsLoggedIn(false);
+		}
+	}, [user]);
 
 	if (!children) return console.log('no children');
 	return (
