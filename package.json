@@ -7,8 +7,9 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start:server": "npm start --prefix server",
 		"start:client": "npm start --prefix client",
-		"start": "npm run start:server & npm run start:client",
-		"install": "cd client && npm install",
+		"start": "npm run start:server ",
+		"dev": "npm run start:server & npm run start:client",
+		"install": "cd client && npm install && cd ../server && npm install",
 		"seed": "cd server && npm run data:import"
 	},
 	"keywords": [],
