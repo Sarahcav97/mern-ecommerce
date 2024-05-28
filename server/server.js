@@ -21,6 +21,14 @@ app.use('/api/users', userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
+// prod deployment
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '..', 'client/build')));
+	app.get('*', function (req, res) {
+		res.sendFile(path.join(__dirname, '..', 'client/build', 'index.html'));
+	});
+}
+
 const PORT = process.env.PORT || 6002;
 app.listen(PORT, () =>
 	console.log(`server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
