@@ -20,8 +20,6 @@ app.use(cors());
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
-app.use(notFound);
-app.use(errorHandler);
 
 // prod deployment
 if (process.env.NODE_ENV === 'production') {
@@ -30,6 +28,8 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.join(__dirname, '..', 'client/build', 'index.html'));
 	});
 }
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 6002;
 app.listen(PORT, () =>
