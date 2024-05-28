@@ -10,7 +10,8 @@
 		"start": "npm run start:server ",
 		"dev": "npm run start:server & npm run start:client",
 		"install": "cd client && npm install && cd ../server && npm install",
-		"seed": "cd server && npm run data:import"
+		"seed": "cd server && npm run data:import",
+		"build": "cd client && npm run build"
 	},
 	"keywords": [],
 	"author": "",
