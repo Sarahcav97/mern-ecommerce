@@ -1,6 +1,7 @@
 import axios from 'axios';
+
 const isProd = window.location.href.includes('sarahcavs.com');
-const prodUrl = 'https://sarahcavs.com/api';
+const prodUrl = 'https://shop.sarahcavs.com/api';
 const devUrl = 'http://localhost:6002/api';
 
 const client = axios.create({
