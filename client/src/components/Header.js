@@ -26,6 +26,11 @@ const Header = () => {
 											<i className='fas fa-shopping-cart'></i> Cart
 										</Nav.Link>
 									</LinkContainer>
+									<LinkContainer to='profile'>
+										<Nav.Link>
+											<i className='fas fa-shopping-cart'></i> Profile
+										</Nav.Link>
+									</LinkContainer>
 									<Nav.Link onClick={handleLogout}>
 										<i className='fas fa-logout'></i> Logout
 									</Nav.Link>
