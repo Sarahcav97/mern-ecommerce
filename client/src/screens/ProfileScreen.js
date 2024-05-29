@@ -12,16 +12,25 @@ import {
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { useUser } from '../context/UserContext';
+import client from '../api/client';
 
 const ProfileScreen = () => {
 	const { user } = useUser();
 
-	const { email, setEmail, password, setPassword, signup, name, setName } =
-		useUser();
+	const {
+		email,
+		setEmail,
+		password,
+		setPassword,
+		name,
+		setName,
+		updateProfile,
+	} = useUser();
+
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log(location);
 	const { isLoggedIn } = useUser();
+
 	useEffect(() => {
 		if (!user) {
 			navigate('/login');
@@ -29,23 +38,24 @@ const ProfileScreen = () => {
 			setName(user.name);
 			setEmail(user.email);
 		}
-	});
+	}, []);
+
 	const submitHandler = (e) => {
 		e.preventDefault();
-		signup();
+		updateProfile();
 		navigate('/profile');
 	};
 
 	return (
 		<Row>
 			<Col md={3}>
-				<h2>Hi, {user.name}!</h2>
+				<h2>Hi, {user.name || 'User'}!</h2>
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='name'>
 						<FormLabel>Name</FormLabel>
 						<FormControl
 							type='text'
-							placeholder={user.name}
+							placeholder='name'
 							value={name}
 							required
 							onChange={(e) => setName(e.target.value)}
@@ -55,7 +65,7 @@ const ProfileScreen = () => {
 						<FormLabel>Email Address</FormLabel>
 						<FormControl
 							type='email'
-							placeholder={user.email}
+							placeholder='enter email'
 							required
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}

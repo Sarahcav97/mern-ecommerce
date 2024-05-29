@@ -1,21 +1,22 @@
 import User from '../../models/userModel.js';
 import generateToken from '../../utils/generateToken.js';
 const authUser = async (req, res) => {
-	const { email, password } = req.body;
-	const user = await User.findOne({ email });
+	try {
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
 
-	const isCorrectPassword = await user.matchPassword(password);
+		const isCorrectPassword = await user.matchPassword(password);
 
-	if (user && isCorrectPassword) {
-		const token = generateToken(user._id);
+		if (user && isCorrectPassword) {
+			const token = generateToken(user._id);
 
-		res.json({
-			user,
-			token,
-		});
-	} else {
-		res.status(401);
-		throw new Error('Invalid email or password');
+			res.json({
+				user,
+				token,
+			});
+		}
+	} catch (error) {
+		res.status(401).json({ success: false, error });
 	}
 };
 

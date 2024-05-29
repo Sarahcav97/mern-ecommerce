@@ -49,6 +49,24 @@ const UserProvider = ({ children }) => {
 		}
 	};
 
+	const updateProfile = async () => {
+		try {
+			setLoading(true);
+			const { data } = await client.put('/users/edit-profile', {
+				name,
+				email,
+				password,
+			});
+			sessionStorage.setItem('token', data.token);
+			sessionStorage.setItem('userInfo', JSON.stringify(data.user));
+			setUser(data.user);
+			setLoading(false);
+			return data;
+		} catch (error) {
+			return console.error(error);
+		}
+	};
+
 	const fetchCurrentUser = async () => {
 		const token = sessionStorage.getItem('token');
 		if (token) {
@@ -96,6 +114,7 @@ const UserProvider = ({ children }) => {
 				signup,
 				name,
 				setName,
+				updateProfile,
 			}}
 		>
 			{children}

@@ -6,9 +6,10 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start:server": "npm start --prefix server",
+		"dev:server": "npm run dev --prefix server",
 		"start:client": "npm start --prefix client",
 		"start": "npm run start:server ",
-		"dev": "npm run start:server & npm run start:client",
+		"dev": "npm run dev:server & npm run start:client",
 		"install": "cd client && npm install && cd ../server && npm install",
 		"seed": "cd server && npm run data:import",
 		"build": "cd client && npm run build"

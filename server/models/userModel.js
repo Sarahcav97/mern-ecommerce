@@ -30,10 +30,8 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 userSchema.pre('save', async function (next) {
-	if (this.isNew || this.isModified('password')) {
-		const saltRounds = 10;
-		this.password = bcrypt.hash(this.password, saltRounds);
-	}
+	const saltRounds = 10;
+	this.password = bcrypt.hashSync(this.password, saltRounds);
 	next();
 });
 
