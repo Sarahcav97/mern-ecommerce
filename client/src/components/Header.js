@@ -28,11 +28,11 @@ const Header = () => {
 									</LinkContainer>
 									<LinkContainer to='profile'>
 										<Nav.Link>
-											<i className='fas fa-shopping-cart'></i> Profile
+											<i className='fas fa-address-card'></i> Profile
 										</Nav.Link>
 									</LinkContainer>
 									<Nav.Link onClick={handleLogout}>
-										<i className='fas fa-logout'></i> Logout
+										<i className='fas fa-logout logout'></i> Logout
 									</Nav.Link>
 								</>
 							) : (
