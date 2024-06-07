@@ -24,7 +24,7 @@ const LoginScreen = () => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		login();
-		navigate('/profile');
+		navigate('/');
 	};
 
 	return (
